@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.testdev.cn</id>
     <title>Gridea</title>
-    <updated>2021-04-20T07:06:26.847Z</updated>
+    <updated>2021-04-20T07:12:46.589Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.testdev.cn"/>
     <link rel="self" href="https://blog.testdev.cn/atom.xml"/>
@@ -34,10 +34,11 @@
 <li>严重超出项目预算</li>
 </ul>
 <h2 id="如何解决项目进度落后">如何解决项目进度落后</h2>
-<pre><code>- 持续交付，持续沟通用户需求
-- 每天向外披露自己的进展；需要哪些帮助，有哪些卡点
-- 列出事项的优先级，排定自己的计划
-</code></pre>
+<ul>
+<li>持续交付，持续沟通用户需求</li>
+<li>每天向外披露自己的进展；需要哪些帮助，有哪些卡点</li>
+<li>列出事项的优先级，排定自己的计划</li>
+</ul>
 <p>项目需要保持良好得“可见性”，项目的所有关注者，都应该对项目了如指掌，这是事项<strong>优先级排定</strong>的基础。</p>
 <p>保持项目的 “可见性” 良好，“任务加塞” 就会变得有据可依。我们不是没时间做事，而是没时间做这件“低优先级” 的事情。</p>
 <p>所以有时候可以这样说，<br>
