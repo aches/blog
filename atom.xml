@@ -1,15 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.testdev.cn</id>
-    <title>Gridea</title>
-    <updated>2021-04-20T07:12:46.589Z</updated>
+    <title>testdev</title>
+    <updated>2021-06-16T09:07:35.427Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.testdev.cn"/>
     <link rel="self" href="https://blog.testdev.cn/atom.xml"/>
     <subtitle>温故而知新</subtitle>
     <logo>https://blog.testdev.cn/images/avatar.png</logo>
     <icon>https://blog.testdev.cn/favicon.ico</icon>
-    <rights>All rights reserved 2021, Gridea</rights>
+    <rights>All rights reserved 2021, testdev</rights>
+    <entry>
+        <title type="html"><![CDATA[基于ESXI Openwrt做主路由，多虚拟机NAT网络配置]]></title>
+        <id>https://blog.testdev.cn/post/ji-yu-esxi-openwrt-zuo-zhu-lu-you-duo-xu-ni-ji-nat-wang-luo-pei-zhi/</id>
+        <link href="https://blog.testdev.cn/post/ji-yu-esxi-openwrt-zuo-zhu-lu-you-duo-xu-ni-ji-nat-wang-luo-pei-zhi/">
+        </link>
+        <updated>2021-06-16T08:20:17.000Z</updated>
+        <content type="html"><![CDATA[<p>之前为了解决全局科学上网问题，入手了一台6网口的3965U 的软路由。具体配置如图<br>
+<img src="https://blog.testdev.cn/post-images/1623831916923.png" alt="" loading="lazy"></p>
+<p>为了最大化利用机器，装了esxi 6.7虚拟机，并安装openwrt做软路由。拓扑图如下<br>
+<img src="https://blog.testdev.cn/post-images/1623832974555.png" alt="" loading="lazy"><br>
+妥妥的三级NAT网络，虽然能用，但是就很差。</p>
+<p>正好趁着有时间，想在软路由上再虚拟一个主机装nas 系统，彻底把网络重新搞一下<br>
+理想状态下是想openwrt做主路由，硬路由做无线ap，nas也由openwrt来管理。<br>
+对于硬路由来说设置还比较方便，改成ap模式就行了，但是nas和openwrt都是再esxi里面，没有物理链接。<br>
+所以这个时候就需要虚拟出来一个网卡给openwrt和 nas共用。</p>
+<p>这时候我们要先添加一个虚拟交换机，一定要把上行链路给删除<br>
+<img src="https://blog.testdev.cn/post-images/1623833838463.png" alt="" loading="lazy"></p>
+<p>然后添加端口组 ,虚机交换机选择刚才创建的那一个<br>
+<img src="https://blog.testdev.cn/post-images/1623834008381.png" alt="" loading="lazy"></p>
+<p>分别再给openwrt 和nas 分配网卡<br>
+<img src="https://blog.testdev.cn/post-images/1623834141830.png" alt="" loading="lazy"><br>
+<img src="https://blog.testdev.cn/post-images/1623834147185.png" alt="" loading="lazy"></p>
+<p>还有一点就是，需要到openwrt中设置新的网卡为lan口，并且nas和openwrt 设置static ip再同一网段，然后重新刷新网络就好了。<br>
+<img src="https://blog.testdev.cn/post-images/1623834318908.png" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[项目进度管理]]></title>
         <id>https://blog.testdev.cn/post/xiang-mu-jin-du-guan-li/</id>
