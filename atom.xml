@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://blog.testdev.cn</id>
+    <title>testdev</title>
+    <updated>2023-10-25T10:46:21.309Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://blog.testdev.cn"/>
+    <link rel="self" href="https://blog.testdev.cn/atom.xml"/>
+    <subtitle>温故而知新</subtitle>
+    <logo>https://blog.testdev.cn/images/avatar.png</logo>
+    <icon>https://blog.testdev.cn/favicon.ico</icon>
+    <rights>All rights reserved 2023, testdev</rights>
+    <entry>
+        <title type="html"><![CDATA[mongoDB 复习笔记 之入门认证]]></title>
+        <id>https://blog.testdev.cn/post/mongodb-fu-xi-bi-ji-zhi-ru-men-ren-zheng/</id>
+        <link href="https://blog.testdev.cn/post/mongodb-fu-xi-bi-ji-zhi-ru-men-ren-zheng/">
+        </link>
+        <updated>2022-11-27T16:58:00.000Z</updated>
+        <content type="html"><![CDATA[<p>太久没有搞mongo 了，从安装到简单权限弄了半天。这次做个简单记录</p>
+<h3 id="1-下载mongodb-和-mongodb-shell-zip包">1. 下载mongodb 和 mongodb shell zip包</h3>
+<p>将下载zip包解压到非中文目录</p>
+<h3 id="2创建启动配置文件">2.创建启动配置文件</h3>
+<pre><code class="language-YML">systemLog:
+ destination: file
+ path: D:\mongodb\mongodb-win32-x86_64-windows-6.0.3\log\mongod.log
+ logAppend: true
+storage:
+ dbPath: D:\mongodb\mongodb-win32-x86_64-windows-6.0.3\data\
+ journal:
+    enabled: true
+net:
+ bindIp: 0.0.0.0
+ port: 27017
+# 下面的认证暂时先不要加
+# security: 
+ # authorization: enabled
+</code></pre>
+<p>我们通过配置文件启动mongodb ，可以创建个启动脚本放到bin目录与mongod.exe同级。<br>
+mongo通过命令启动的脚本如下</p>
+<pre><code class="language-SHELL">mongod.exe --config D:\mongodb\mongodb-win32-x86_64-windows-6.0.3\bin\mongod.conf
+</code></pre>
+<h3 id="3-创建用户并授权">3. 创建用户并授权</h3>
+<p>进入mongodb shell 的bin目录，通过mongosh.exe 来创建用户<br>
+注意，新库一定要关闭配置文件的 authorization 权限</p>
+<pre><code class="language-BASH"># 进入mongodb
+mongosh.exe --port 27017  
+# 切换到demo database 如果没有则会创建
+use demo
+# 创建用户（一定要切换到对应数据库才能创建对应库的用户）
+db.createUser(
+  {
+    user: &quot;demoadmin&quot;,
+    pwd:  passwordPrompt(),   // 输入密码
+    roles: [ { role: &quot;readWrite&quot;, db: &quot;demo&quot; } ] //指定db
+  }
+)
+
+</code></pre>
+<h3 id="4-放开权限认证">4. 放开权限认证</h3>
+<p>用户创建成功后增加权限认证并重启数据库</p>
+<pre><code class="language-BASH">security: 
+    authorization: enabled
+</code></pre>
+<p>再次进入到shell 通过<code>db.auth </code>来验证是否成功</p>
+<pre><code class="language-BASH">use demo
+db.auth('demo','demo')
+</code></pre>
+<hr>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[基于ESXI Openwrt做主路由，多虚拟机NAT网络配置]]></title>
+        <id>https://blog.testdev.cn/post/ji-yu-esxi-openwrt-zuo-zhu-lu-you-duo-xu-ni-ji-nat-wang-luo-pei-zhi/</id>
+        <link href="https://blog.testdev.cn/post/ji-yu-esxi-openwrt-zuo-zhu-lu-you-duo-xu-ni-ji-nat-wang-luo-pei-zhi/">
+        </link>
+        <updated>2021-06-16T08:20:17.000Z</updated>
+        <content type="html"><![CDATA[<p>之前为了解决全局科学上网问题，入手了一台6网口的3965U 的软路由。具体配置如图<br>
+<img src="https://blog.testdev.cn/post-images/1623831916923.png" alt="" loading="lazy"></p>
+<p>为了最大化利用机器，装了esxi 6.7虚拟机，并安装openwrt做软路由。拓扑图如下<br>
+<img src="https://blog.testdev.cn/post-images/1623832974555.png" alt="" loading="lazy"><br>
+妥妥的三级NAT网络，虽然能用，但是就很差。</p>
+<p>正好趁着有时间，想在软路由上再虚拟一个主机装nas 系统，彻底把网络重新搞一下<br>
+理想状态下是想openwrt做主路由，硬路由做无线ap，nas也由openwrt来管理。<br>
+对于硬路由来说设置还比较方便，改成ap模式就行了，但是nas和openwrt都是再esxi里面，没有物理链接。<br>
+所以这个时候就需要虚拟出来一个网卡给openwrt和 nas共用。</p>
+<p>这时候我们要先添加一个虚拟交换机，一定要把上行链路给删除<br>
+<img src="https://blog.testdev.cn/post-images/1623833838463.png" alt="" loading="lazy"></p>
+<p>然后添加端口组 ,虚机交换机选择刚才创建的那一个<br>
+<img src="https://blog.testdev.cn/post-images/1623834008381.png" alt="" loading="lazy"></p>
+<p>分别再给openwrt 和nas 分配网卡<br>
+<img src="https://blog.testdev.cn/post-images/1623834141830.png" alt="" loading="lazy"><br>
+<img src="https://blog.testdev.cn/post-images/1623834147185.png" alt="" loading="lazy"></p>
+<p>还有一点就是，需要到openwrt中设置新的网卡为lan口，并且nas和openwrt 设置static ip再同一网段，然后重新刷新网络就好了。<br>
+<img src="https://blog.testdev.cn/post-images/1623834318908.png" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[项目进度管理]]></title>
+        <id>https://blog.testdev.cn/post/xiang-mu-jin-du-guan-li/</id>
+        <link href="https://blog.testdev.cn/post/xiang-mu-jin-du-guan-li/">
+        </link>
+        <updated>2021-04-20T02:50:34.000Z</updated>
+        <content type="html"><![CDATA[<p><a href="https://zh.wikipedia.org/wiki/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B">软件工程</a>这个概念首次提出是在1968年，其主要定义是</p>
+<blockquote>
+<p>应用计算机科学理论和技术以及工程管理原则和方法，按<strong>预算</strong>和<strong>进度</strong>，实现<strong>满足用户要求</strong>的<br>
+软件产品的定义、开发、和维护的工程或进行研究的学科</p>
+</blockquote>
+<p>在《持续交付 2.0》中写道，</p>
+<blockquote>
+<p>质量与速度根本不存在平衡，只有在产品能够承受的一定质量水准基础上，追求交付的速度才有意义。<br>
+持续交付要解决的问题是，如何在满足质量要求的前提下，快速的交付产品价值。</p>
+</blockquote>
+<h2 id="项目为什么会失败">项目为什么会失败？</h2>
+<p>项目经理对项目失去把控，项目进度过于乐观，软件开发交付周期过长都会主观原因大概有以下几点</p>
+<ul>
+<li>无法掌控项目周期进度，导致项目延期</li>
+<li>交付得软件质量无法满足用户需求</li>
+<li>严重超出项目预算</li>
+</ul>
+<h2 id="如何解决项目进度落后">如何解决项目进度落后</h2>
+<ul>
+<li>持续交付，持续沟通用户需求</li>
+<li>每天向外披露自己的进展；需要哪些帮助，有哪些卡点</li>
+<li>列出事项的优先级，排定自己的计划</li>
+</ul>
+<p>项目需要保持良好得“可见性”，项目的所有关注者，都应该对项目了如指掌，这是事项<strong>优先级排定</strong>的基础。</p>
+<p>保持项目的 “可见性” 良好，“任务加塞” 就会变得有据可依。我们不是没时间做事，而是没时间做这件“低优先级” 的事情。</p>
+<p>所以有时候可以这样说，<br>
+没时间是好事，可以促使人们想清楚，什么才是最重要的事情。</p>
+<h3 id="是否需要增加人手">是否需要增加人手</h3>
+<p>能不能加人，取决于事项能不能分解成多人并行执行的任务。<br>
+比如在 web 开发过程中，在一定程度上，前后端开发任务是具备 “可并行性” 的。<br>
+那么加人就能使这段 “可并行” 的任务提前交付。</p>
+<p>但是，并行的任务迟早还有 “合并” 的时候，这时又要有沟通成本了。<br>
+因此，加不加人，以及加人能否解决延期问题，就要评估并行开发的任务占比。</p>
+<h3 id="关注影响价值交付的瓶颈点">关注影响价值交付的瓶颈点</h3>
+<ul>
+<li>只关注有价值的交付点，拒绝过渡开发，过渡设计，过渡优化</li>
+<li>卡住自己的上游和依赖方，一定要提前催一日三催，不能让别人影响自己的进度</li>
+</ul>
+<p><strong>瓶颈点</strong>一般是跟 “代码” 无关的，而是跟 “人” 有关。</p>
+<p>比如，事先如果没有沟通好具体事项，那么就容易在做完后频繁返工。<br>
+或者，在开发过程中遇到不确定性时没有上报，私自做出的决策也有可能在后期被推翻。<br>
+又比如，项目需要某个人拍板后决定，但是这个人的回复又比较慢。</p>
+<p>这些都是有办法解决的，关键在于没有 “识别” 出来。</p>
+<h2 id="小结">小结</h2>
+<p>对进度落后的项目进行治理，是一件 “技术活”，并不是加人多写点代码就能解决的。更多的是需要项目经理不断思考，沟通，发现。</p>
+<ul>
+<li>哪些是当前最重要的事情，优先级的排定如何动态调整</li>
+<li>每个人都在忙什么，哪些人处于等待中（卡住别人的人，其实并不清楚现状）</li>
+<li>是不是聚焦在功能模块的价值交付上了，还是提前关注了微不足道的细节</li>
+<li>如何达成共识，如何避免返工</li>
+</ul>
+]]></content>
+    </entry>
+</feed>

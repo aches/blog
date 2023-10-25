@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>项目进度管理 | testdev</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://blog.testdev.cn/favicon.ico?v=1698230778256">
+<link rel="stylesheet" href="https://blog.testdev.cn/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="软件工程这个概念首次提出是在1968年，其主要定义是
+
+应用计算机科学理论和技术以及工程管理原则和方法，按预算和进度，实现满足用户要求的
+软件产品的定义、开发、和维护的工程或进行研究的学科
+
+在《持续交付 2.0》中写道，
+
+质量与速度根本..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.testdev.cn">
+        <img src="https://blog.testdev.cn/images/avatar.png?v=1698230778256" class="site-logo">
+        <h1 class="site-title">testdev</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav" target="_blank">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav" target="_blank">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank"> Gridea</a> | <a class="rss" href="https://blog.testdev.cn/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">项目进度管理</h2>
+            <div class="post-date">2021-04-20</div>
+            
+            <div class="post-content" v-pre>
+              <p><a href="https://zh.wikipedia.org/wiki/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B">软件工程</a>这个概念首次提出是在1968年，其主要定义是</p>
+<blockquote>
+<p>应用计算机科学理论和技术以及工程管理原则和方法，按<strong>预算</strong>和<strong>进度</strong>，实现<strong>满足用户要求</strong>的<br>
+软件产品的定义、开发、和维护的工程或进行研究的学科</p>
+</blockquote>
+<p>在《持续交付 2.0》中写道，</p>
+<blockquote>
+<p>质量与速度根本不存在平衡，只有在产品能够承受的一定质量水准基础上，追求交付的速度才有意义。<br>
+持续交付要解决的问题是，如何在满足质量要求的前提下，快速的交付产品价值。</p>
+</blockquote>
+<h2 id="项目为什么会失败">项目为什么会失败？</h2>
+<p>项目经理对项目失去把控，项目进度过于乐观，软件开发交付周期过长都会主观原因大概有以下几点</p>
+<ul>
+<li>无法掌控项目周期进度，导致项目延期</li>
+<li>交付得软件质量无法满足用户需求</li>
+<li>严重超出项目预算</li>
+</ul>
+<h2 id="如何解决项目进度落后">如何解决项目进度落后</h2>
+<ul>
+<li>持续交付，持续沟通用户需求</li>
+<li>每天向外披露自己的进展；需要哪些帮助，有哪些卡点</li>
+<li>列出事项的优先级，排定自己的计划</li>
+</ul>
+<p>项目需要保持良好得“可见性”，项目的所有关注者，都应该对项目了如指掌，这是事项<strong>优先级排定</strong>的基础。</p>
+<p>保持项目的 “可见性” 良好，“任务加塞” 就会变得有据可依。我们不是没时间做事，而是没时间做这件“低优先级” 的事情。</p>
+<p>所以有时候可以这样说，<br>
+没时间是好事，可以促使人们想清楚，什么才是最重要的事情。</p>
+<h3 id="是否需要增加人手">是否需要增加人手</h3>
+<p>能不能加人，取决于事项能不能分解成多人并行执行的任务。<br>
+比如在 web 开发过程中，在一定程度上，前后端开发任务是具备 “可并行性” 的。<br>
+那么加人就能使这段 “可并行” 的任务提前交付。</p>
+<p>但是，并行的任务迟早还有 “合并” 的时候，这时又要有沟通成本了。<br>
+因此，加不加人，以及加人能否解决延期问题，就要评估并行开发的任务占比。</p>
+<h3 id="关注影响价值交付的瓶颈点">关注影响价值交付的瓶颈点</h3>
+<ul>
+<li>只关注有价值的交付点，拒绝过渡开发，过渡设计，过渡优化</li>
+<li>卡住自己的上游和依赖方，一定要提前催一日三催，不能让别人影响自己的进度</li>
+</ul>
+<p><strong>瓶颈点</strong>一般是跟 “代码” 无关的，而是跟 “人” 有关。</p>
+<p>比如，事先如果没有沟通好具体事项，那么就容易在做完后频繁返工。<br>
+或者，在开发过程中遇到不确定性时没有上报，私自做出的决策也有可能在后期被推翻。<br>
+又比如，项目需要某个人拍板后决定，但是这个人的回复又比较慢。</p>
+<p>这些都是有办法解决的，关键在于没有 “识别” 出来。</p>
+<h2 id="小结">小结</h2>
+<p>对进度落后的项目进行治理，是一件 “技术活”，并不是加人多写点代码就能解决的。更多的是需要项目经理不断思考，沟通，发现。</p>
+<ul>
+<li>哪些是当前最重要的事情，优先级的排定如何动态调整</li>
+<li>每个人都在忙什么，哪些人处于等待中（卡住别人的人，其实并不清楚现状）</li>
+<li>是不是聚焦在功能模块的价值交付上了，还是提前关注了微不足道的细节</li>
+<li>如何达成共识，如何避免返工</li>
+</ul>
+
+            </div>
+            
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '9d67b89c99ad0cd90465',
+        clientSecret: 'd54a7f2e70e12517f2b382c00fc2d9995eb3b764',
+        repo: 'blog',
+        owner: 'aches',
+        admin: ['aches'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>
